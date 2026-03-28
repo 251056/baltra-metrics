@@ -1,4 +1,7 @@
 import { Container } from 'react-bootstrap';
+import { Pie } from 'react-chartjs-2';   
+import { data } from './components/PieChart';
+
 
 function ComparisonPage() {
   return (
@@ -6,6 +9,8 @@ function ComparisonPage() {
       <Container>
         <h1>Comparison Dashboard</h1>
         <p>Chart.js Bar, Pie, and Radar graphs will go here. Also decide where you wanna add all the nutritional data babes :/</p>
+
+        <Pie data={data} />
       </Container>
     </div>
   );

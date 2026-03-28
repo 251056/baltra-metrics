@@ -1,0 +1,164 @@
+.compare-container {
+  background-color: #050505;
+  color: white;
+  min-height: 100vh;
+}
+
+.compare-hero {
+  background-size: cover;
+  background-position: left;
+  padding-top: 180px;
+  padding-bottom: 60px;
+  text-align: center;
+}
+
+.compare-title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 4.5rem;
+  font-weight: normal;
+  letter-spacing: -1px;
+  margin-bottom: 60px;
+}
+
+.search-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #222;
+}
+
+.pill-input {
+  background-color: transparent;
+  border: 1px solid #444;
+  border-radius: 50px;
+  padding: 12px 24px;
+  color: white;
+  width: 280px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.pill-input:focus {
+  border-color: #00ffcc;
+}
+
+.pill-input:hover {
+  border-color: #00ffcc;
+}
+
+.compare-label {
+  font-family: "Courier New", monospace;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #eee;
+}
+
+.search-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #222;
+  flex-wrap: wrap; 
+}
+
+.pill-input {
+  background-color: transparent;
+  border: 1px solid #444;
+  border-radius: 50px;
+  padding: 12px 24px;
+  color: white;
+  width: 100%;
+  max-width: 280px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+/* --- RESPONSIVE MOBILE OVERRIDES --- */
+@media (max-width: 768px) {
+  .compare-title {
+    font-size: 3rem; /* Shrink the title so it doesn't overflow */
+  }
+
+  .search-row {
+    flex-direction: column; 
+    gap: 20px; 
+    padding-left: 20px; 
+    padding-right: 20px;
+  }
+
+  .pill-input {
+    max-width: 100%; 
+  }
+
+  .compare-label {
+    order: -1; 
+    font-size: 1rem;
+  }
+}
+
+/* --- DATA ANALYSIS ZONE STYLES --- */
+
+.analysis-column {
+  margin-bottom: 2rem;
+}
+
+/* Cards*/
+.food-analysis-frame {
+  background-color: #0a0a0a; /* Intentonally slightly lighter than pure black */
+  border: 1px solid #222; 
+  border-radius: 35px;
+  padding: 30px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5); 
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 250px; 
+  margin: 0 auto 30px auto;
+  position: relative;
+}
+
+/* Summary text below the chart */
+.analysis-summary-text {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* The parent flex container for the lists */
+.nutrient-grid-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  margin-top: auto; 
+}
+
+.nutrient-list-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  padding: 8px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.nutrient-value-cell {
+  color: #00ffcc; 
+  font-weight: bold;
+}

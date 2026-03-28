@@ -92,7 +92,7 @@ function LandingPage() {
 
             <Container className="pt-5 mt-4">
                 <h2 style={{ letterSpacing: '2px', fontWeight: 'bold', borderBottom: '2px solid #333', paddingBottom: '15px', marginBottom: '30px' }}>
-                    COMPARATIVE ANALYSIS / <span style={{ color: '#00ffcc' }}>MACROS</span>
+                    COMPARATIVE ANALYSIS/ <span style={{ color: '#00ffcc' }}>MACROS</span>
                 </h2>
 
                 {loading ? (

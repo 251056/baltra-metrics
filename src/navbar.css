@@ -10,6 +10,7 @@
   width: 90%; 
   max-width: 1600px; 
   top: 25px; /* Pushes it away from the top edge of the screen */
+  z-index: 1000; /* Ensures it stays above other content to patch the graph going above the navbar issue */
   
   /* Center a fixed element */
   left: 50%;

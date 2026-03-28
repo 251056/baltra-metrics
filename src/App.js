@@ -8,6 +8,7 @@ import NavigationBar from './navbar';
 import LandingPage from './LandingPage';
 import ComparisonPage from './ComparisonPage';
 import TimelinePage from './TimelinePage';
+import ComparePage from './ComparePage';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       {/* Understanding of Routing: The Routes engine watches the URL and renders the matching component */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/compare" element={<ComparisonPage />} />
+        <Route path="/compare" element={<ComparePage />} />
         <Route path="/timeline" element={<TimelinePage />} />
       </Routes>
     </BrowserRouter>
