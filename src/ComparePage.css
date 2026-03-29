@@ -8,7 +8,7 @@
   background-size: cover;
   background-position: left;
   padding-top: 180px;
-  padding-bottom: 60px;
+  padding-bottom: 0px;
   text-align: center;
 }
 
@@ -122,7 +122,7 @@
   align-items: center; 
 }
 
-/* 2. New class for the title to lock its height */
+/* Class for the title to lock its height */
 .macro-card-title {
   font-family: "Playfair Display", "Times New Roman", serif;
   font-size: 2.5rem; /* Scaled down slightly so long names don't break the layout */
@@ -138,7 +138,7 @@
   justify-content: center;
 }
 
-/* 3. Lock the summary text height */
+/* Lock the summary text height */
 .analysis-summary-text {
   font-size: 0.95rem;
   color: #ccc;
@@ -146,11 +146,11 @@
   text-align: center;
   margin-bottom: 30px;
   
-  /* THE FIX: Forces the summary area to always act like it has 3 lines of text */
+  /* Forces the summary area to always act like it has 3 lines of text (fix sizing issue)*/
   min-height: 80px; 
 }
 
-/* 4. Push the list safely to the bottom */
+/* Push the list to the bottom */
 .nutrient-grid-container {
   width: 100%;
   display: flex;
@@ -209,10 +209,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem; /* The gap between the Macro card and this card */
+  margin-top: 2rem; 
 }
 
-/* Optional: Tweaks the title of the radar card to match the industrial vibe */
+/* Title of the radar card */
 .radar-title {
   font-family: "Courier New", monospace;
   font-size: 1.2rem;

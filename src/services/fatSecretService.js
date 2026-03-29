@@ -9,7 +9,7 @@ export const getFatSecretToken = async () => {
   try {
     const response = await fetch(PROXY_URL);
     if (!response.ok) throw new Error("Failed to fetch token from proxy");
-    
+
     const data = await response.json();
     // FatSecret returns an object with { access_token, expires_in, token_type }
     return data.access_token;
