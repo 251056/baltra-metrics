@@ -117,10 +117,46 @@
   border-radius: 35px;
   padding: 30px;
   box-shadow: 0 4px 30px rgba(0,0,0,0.5); 
-  height: 100%; 
   display: flex;
   flex-direction: column;
   align-items: center; 
+}
+
+/* 2. New class for the title to lock its height */
+.macro-card-title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 2.5rem; /* Scaled down slightly so long names don't break the layout */
+  font-weight: normal;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+  
+  /* THE FIX: Forces the title area to always act like it has 3 lines of text */
+  min-height: 120px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3. Lock the summary text height */
+.analysis-summary-text {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 30px;
+  
+  /* THE FIX: Forces the summary area to always act like it has 3 lines of text */
+  min-height: 80px; 
+}
+
+/* 4. Push the list safely to the bottom */
+.nutrient-grid-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 40px; 
 }
 
 .chart-container {
@@ -145,7 +181,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px; 
-  margin-top: auto; 
+  margin-top: 40px; 
 }
 
 .nutrient-list-row {
@@ -161,4 +197,33 @@
 .nutrient-value-cell {
   color: #00ffcc; 
   font-weight: bold;
+}
+
+/* --- DEDICATED RADAR TILE --- */
+.radar-frame {
+  background-color: #0a0a0a;
+  border: 1px solid #222;
+  border-radius: 35px;
+  padding: 30px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem; /* The gap between the Macro card and this card */
+}
+
+/* Optional: Tweaks the title of the radar card to match the industrial vibe */
+.radar-title {
+  font-family: "Courier New", monospace;
+  font-size: 1.2rem;
+  color: #00ffcc;
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+#root > div > div.pt-5.mt-4.container > div.row > div:nth-child(2) > div.radar-frame > div > canvas {
+  /* This selector is intentionally specific to target only the radar chart's canvas */
+  max-width: 100% !important; 
+  height: auto !important; 
 }

@@ -44,4 +44,6 @@
 body {
   /* Reminder: From Figma prototype, explore more fonts fonts before settling on DM Sans, then DELETE COMMENTTTT */
   font-family: 'DM Sans', sans-serif !important;
+  background-color: #050505;
+  color: white;
 }

@@ -6,7 +6,6 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavigationBar from './navbar';
 import LandingPage from './LandingPage';
-import ComparisonPage from './ComparisonPage';
 import TimelinePage from './TimelinePage';
 import ComparePage from './ComparePage';
 
