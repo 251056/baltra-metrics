@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { searchFoods } from '../services/foodApi';
 
 const FoodSearchInput = ({ placeholder, token, onFoodSelect }) => {
+    // State for the search query, results, loading state, and dropdown visibility
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
@@ -43,8 +44,12 @@ const FoodSearchInput = ({ placeholder, token, onFoodSelect }) => {
         return () => clearTimeout(delayDebounceFn);
     }, [query, token]);
 
+    // When a user clicks a dropdown result: 
+    // 1) Prevent the search effect from running again by arming the skipNextSearch ref
+    // 2) Update the input field to show the name of the selected food
+    // 3) Call the onFoodSelect callback with the selected food's ID so the parent component can load its details.
     const handleSelect = (foodId, foodName) => {
-        skipNextSearch.current = true; // Arm the tripwire!
+        skipNextSearch.current = true; 
         setQuery(foodName);
         setShowDropdown(false);
         onFoodSelect(foodId);
@@ -52,6 +57,7 @@ const FoodSearchInput = ({ placeholder, token, onFoodSelect }) => {
 
     return (
         <div style={{ position: 'relative', width: '100%', maxWidth: '280px' }}>
+            {/* When the user types, it updates the query state, which triggers the search effect. When the input is focused, if there is already a query, it re-opens the dropdown to show results. */}
             <input
                 type="text"
                 className="pill-input"
@@ -69,12 +75,13 @@ const FoodSearchInput = ({ placeholder, token, onFoodSelect }) => {
                     borderRadius: '35px', zIndex: 100, overflow: 'hidden',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.8)'
                 }}>
+                    {/* The dropdown content changes based on the search state: it shows a loading message while searching, a list of results if found, or a "no matches" message if the search returns empty. */}
                     {isSearching ? (
                         <div style={{ padding: '15px', color: '#00ffcc', fontFamily: '"Courier New", monospace', fontSize: '0.85rem', textAlign: 'center' }}>
                             Searching...
                         </div>
                     ) : results.length > 0 ? (
-                        <ul style={{ listStyle: 'none', margin: 0, padding: 0, maxHeight: '300px', overflowY: 'auto' }}>
+                        <ul style={{ listStyle: 'none', margin: 0, padding: 0, maxHeight: '300px', overflowY: 'auto' }}> {/* Each result is rendered as a clickable list item. When hovered, the background color changes to provide visual feedback. Clicking an item triggers the handleSelect function, which updates the input field and notifies the parent component of the selection. */}
                             {results.map((food) => (
                                 <li
                                     key={food.food_id}

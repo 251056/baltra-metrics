@@ -2,6 +2,7 @@
  * Licensed under the Educational and Demonstrative Use License, Version 1.0.
  * See LICENSE file in the project root for full terms and restrictions.
  */
+
 const PROXY_URL = "https://bvltra-proxy.onrender.com/api/fatsecret-token";
 const SEARCH_URL = "https://bvltra-proxy.onrender.com/api/search-food";
 const DETAILS_URL = "https://bvltra-proxy.onrender.com/api/get-food";
@@ -48,9 +49,10 @@ export const getAccessToken = async () => {
 //     }
 // };
 
+// Get the detailed nutritional info for a specific food ID
 export const searchFoods = async (query, token) => {
     try {
-        // THE FIX: We are bouncing this through your Render proxy to bypass CORS
+        // The proxy server handles the authentication and forwarding to FatSecret, so we just call our proxy with the search query. The proxy then adds the necessary auth headers and forwards the request to FatSecret's API.
         const url = `${SEARCH_URL}?q=${encodeURIComponent(query)}`;
 
         const response = await fetch(url, {
@@ -66,7 +68,7 @@ export const searchFoods = async (query, token) => {
         const foods = data.foods?.food;
         if (!foods) return [];
 
-        // FatSecret quirk: normalize single objects into an array
+        // Normalize single objects into an array
         return Array.isArray(foods) ? foods : [foods];
     } catch (error) {
         console.error("Search error via proxy:", error);
@@ -74,6 +76,7 @@ export const searchFoods = async (query, token) => {
     }
 };
 
+// Get the detailed nutritional info using specific food ID
 export const getFoodDetails = async (foodId, token) => {
     try {
         const url = `${DETAILS_URL}?id=${foodId}`;

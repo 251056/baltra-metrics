@@ -1,3 +1,7 @@
+/* * Copyright (c) 2026 BVLTRA. All rights reserved.
+ * Licensed under the Educational and Demonstrative Use License, Version 1.0.
+ * See LICENSE file in the project root for full terms and restrictions.
+ */
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import bgImage from './assets/hero-header-compare.jpg';
@@ -6,15 +10,25 @@ import { getAccessToken, getFoodDetails } from './services/foodApi';
 
 // Components
 import GlobalLegend from './components/GlobalLegend';
-import FoodAnalysisFrame from './components/FoodAnalysisFrame';
-import MicronutrientFrame from './components/MicronutrientFrame';
-import DirectComparisonSection from './components/DirectComparisonSection';
+import FoodAnalysisFrame from './components/PieChart';
+import MicronutrientFrame from './components/RadarGraph';
+import DirectComparisonSection from './components/BarGraph';
 import FoodSearchInput from './components/FoodSearchInput'; 
+import { logSearchHistory } from './services/telemetry';
 
 function ComparePage() {
-    // Dynamic states 
-    const [foodAData, setFoodAData] = useState(null);
-    const [foodBData, setFoodBData] = useState(null);
+    // State for both food items, initialized from localStorage to persist across sessions
+    // Fixes the food disappearing issue by ensuring that the state is preserved even if the user accidentally triggers a re-render that would otherwise reset it, like leaving the page.
+    const [foodAData, setFoodAData] = useState(() => {
+        const savedA = localStorage.getItem('bvltra_compare_A');
+        return savedA ? JSON.parse(savedA) : null;
+    });
+
+    const [foodBData, setFoodBData] = useState(() => {
+        const savedB = localStorage.getItem('bvltra_compare_B');
+        return savedB ? JSON.parse(savedB) : null;
+    });
+
     const [token, setToken] = useState(null);
     
     // Loading state is defined here 
@@ -34,15 +48,26 @@ function ComparePage() {
     const handleLoadFoodA = async (foodId) => {
         if (!token) return;
         const data = await getFoodDetails(foodId, token);
-        setFoodAData(data);
-    };
 
+        setFoodAData(data); // Updates the UI
+        localStorage.setItem('bvltra_compare_A', JSON.stringify(data)); // Locks it into browser memory
+
+        logSearchHistory(data);  // Save food A for history
+
+    };
+    // When a user clicks a dropdown result
     const handleLoadFoodB = async (foodId) => {
         if (!token) return;
         const data = await getFoodDetails(foodId, token);
-        setFoodBData(data);
+
+        setFoodBData(data); // Updates the UI
+        localStorage.setItem('bvltra_compare_B', JSON.stringify(data)); // Locks it into browser memory
+
+        logSearchHistory(data);  // Save food B for history
+
     };
 
+    // Hero section style with background image and overlay
     const heroStyle = {
         backgroundImage: `linear-gradient(to bottom, rgba(5,5,5,0.4) 0%, #050505 100%), url(${bgImage})`
     };
@@ -67,12 +92,13 @@ function ComparePage() {
                 </div>
             </div>
 
-            <Container className="pt-5 mt-4">
+            {/* The rest of the page is conditionally rendered based on loading state and whether food data exists, with a new "Awaiting Input" message if neither food is selected yet. */}
+            <Container className="pt-4 mt-4">
                 {loading ? (
-                    <div style={{ color: '#00ffcc', letterSpacing: '1px', textAlign: 'center', fontSize: '1.2rem' }}>INITIALIZING...</div>
+                    <div style={{ color: '#00ffcc', letterSpacing: '1px', textAlign: 'center', fontSize: '1.2rem', fontFamily: '"Courier New", monospace' }}>Getting things ready, please wait...</div>
                 ) : (!foodAData && !foodBData) ? (
                     <div style={{ color: '#666', letterSpacing: '1px', textAlign: 'center', fontSize: '1.2rem', fontFamily: '"Courier New", monospace' }}>
-                        AWAITING INPUT...
+                        Ready to compare. Awaiting input...
                     </div>
                 ) : (
                     <>
