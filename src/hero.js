@@ -3,7 +3,7 @@ import './hero.css';
 
 //Note: Images imposted because react apparently doesn't like it when you use the files in the public folder for some reason. 
 //To do: Learn more about how react handles static assets and see if there's a way to use the public folder instead of importing every image as a module.
-import bgImage from './assets/hero-bg.jpg';
+import bgImage from './assets/hero-bg2.jpg';
 import logoImage from './assets/hero-logo.png';
 function Hero() {
     return (

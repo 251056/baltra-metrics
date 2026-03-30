@@ -6,7 +6,9 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import bgImage from './assets/hero-header-compare.jpg';
 import './ComparePage.css';
-import { getAccessToken, getFoodDetails } from './services/foodApi';
+import { getAccessToken, getFoodDetails, searchFoods } from './services/foodApi';
+
+import { useSearchParams } from 'react-router-dom';
 
 // Components
 import GlobalLegend from './components/GlobalLegend';
@@ -34,11 +36,37 @@ function ComparePage() {
     // Loading state is defined here 
     const [loading, setLoading] = useState(true); 
 
-    // Grab auth token when the page loads
+    // The Sensor that reads the URL
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    // Grab the auth token, and check if we were sent here by the global search
     useEffect(() => {
         const initEngine = async () => {
             const fetchedToken = await getAccessToken();
             setToken(fetchedToken);
+
+            // --- URL reader ---
+            const globalQuery = searchParams.get('search'); // Looks for ?search=...
+            
+            if (globalQuery && fetchedToken) {
+                // Find top matches for that word
+                const searchResults = await searchFoods(globalQuery, fetchedToken);
+                
+                if (searchResults && searchResults.length > 0) {
+                    // Get ID of the closest match
+                    const topResultId = searchResults[0].food_id;
+                    
+                    // Fetch and load it into Slot A
+                    const data = await getFoodDetails(topResultId, fetchedToken);
+                    setFoodAData(data);
+                    localStorage.setItem('bvltra_compare_A', JSON.stringify(data));
+                    logSearchHistory(data);
+                }
+                
+                // Reamove the search term from the URL so it doesn't get stuck in a loop if you refresh
+                setSearchParams({});
+            }
+
             setLoading(false); // Readyyyyy
         };
         initEngine();

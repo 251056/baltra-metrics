@@ -2,84 +2,32 @@
  * Licensed under the Educational and Demonstrative Use License, Version 1.0.
  * See LICENSE file in the project root for full terms and restrictions.
  */
+
 import React, { useEffect, useState } from 'react';
 import Hero from './hero';
 import { Container, Row, Col } from 'react-bootstrap';
 import { getAccessToken, getFoodDetails } from './services/foodApi';
 
-// --- CUSTOM COMPONENT ---
-// This builds the individual data rows for the mockup
-const StatRow = ({ label, value, unit }) => (
-    <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid #333',
-        padding: '8px 0',
-        fontSize: '0.9rem',
-        color: '#ccc'
-    }}>
-        <span style={{ fontWeight: 'bold', color: '#fff' }}>{label}</span>
-        <span>{value ? `${value}${unit}` : `0${unit}`}</span>
-    </div>
-);
 
-const NutritionColumn = ({ foodData }) => {
-    if (!foodData) return null;
-
-    // FatSecret sometimes returns an array of servings, sometimes a single object. 
-    // This safely extracts the first available serving data.
-    const rawServing = foodData.servings?.serving;
-    const serving = Array.isArray(rawServing) ? rawServing[0] : rawServing;
-
-    if (!serving) return <p>No serving data available.</p>;
-
-    return (
-        <div style={{
-            backgroundColor: '#0a0a0a',
-            border: '1px solid #222',
-            borderRadius: '4px',
-            padding: '24px',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
-        }}>
-            <h3 style={{ color: '#00ffcc', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>
-                {foodData.food_name}
-            </h3>
-            <p style={{ color: '#666', fontSize: '0.85rem', marginBottom: '20px' }}>
-                {foodData.food_type === 'Brand' ? foodData.brand_name : 'Generic'} | {serving.measurement_description}
-            </p>
-
-            {/* Data Grid format */}
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <StatRow label="Calories" value={serving.calories} unit=" kcal" />
-                <StatRow label="Protein" value={serving.protein} unit="g" />
-                <StatRow label="Total Carbohydrate" value={serving.carbohydrate} unit="g" />
-                <StatRow label="Total Fat" value={serving.fat} unit="g" />
-                <StatRow label="Saturated Fat" value={serving.saturated_fat} unit="g" />
-                <StatRow label="Cholesterol" value={serving.cholesterol} unit="mg" />
-                <StatRow label="Sodium" value={serving.sodium} unit="mg" />
-                <StatRow label="Fiber" value={serving.fiber} unit="g" />
-                <StatRow label="Sugar" value={serving.sugar} unit="g" />
-            </div>
-        </div>
-    );
-};
+import FoodAnalysisFrame from './components/PieChart';
+import anatomyImage from './assets/chef-pan-anatomy.png'; 
 
 // --- MAIN PAGE ---
 function LandingPage() {
-    const [baconData, setBaconData] = useState(null);
-    const [fishData, setFishData] = useState(null);
+    const [foodAData, setFoodAData] = useState(null);
+    const [foodBData, setFoodBData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const loadComparisonData = async () => {
             const token = await getAccessToken();
             if (token) {
-                // Fetching ID 794 (Find bacon) and ID 3570 (Find Salmon/Fish)... Like, these are the wrong IDs, so actually, find the right ones
-                const bacon = await getFoodDetails("794", token);
-                const fish = await getFoodDetails("3570", token);
+                // Demo foods
+                const foodA = await getFoodDetails("794", token);
+                const foodB = await getFoodDetails("3570", token);
 
-                setBaconData(bacon); //ITS NOT BACON
-                setFishData(fish); //YOU WISH IT WAS FISH
+                setFoodAData(foodA);
+                setFoodBData(foodB);
             }
             setLoading(false);
         };
@@ -87,27 +35,111 @@ function LandingPage() {
     }, []);
 
     return (
-        <div style={{ backgroundColor: '#050505', color: 'white', minHeight: '100vh', paddingBottom: '100px' }}>
+        <div style={{ backgroundColor: '#040404', color: 'white', minHeight: '100vh', paddingBottom: '100px' }}>
             <Hero />
 
-            <Container className="pt-5 mt-4">
-                <h2 style={{ letterSpacing: '2px', fontWeight: 'bold', borderBottom: '2px solid #333', paddingBottom: '15px', marginBottom: '30px' }}>
-                    COMPARATIVE ANALYSIS/ <span style={{ color: '#00ffcc' }}>MACROS</span>
-                </h2>
+            <Container className="pt-0 mt-4">
 
-                {loading ? (
-                    <div style={{ color: '#00ffcc', letterSpacing: '2px' }}>INITIALIZING ENGINE...</div>
-                ) : (
-                    <Row>
-                        {/* Double check id */}
-                        {/* Column 1: Bacon ??*/}
-                        <Col md={6} className="mb-4">
-                            <NutritionColumn foodData={baconData} />
+                {/* --- ANATOMY SECTION --- */}
+                <div>
+                    <hr style={{ borderColor: '#333', borderWidth: '1px', opacity: 1, margin: '20px 0 0 0' }} />
+
+                    <Row className="align-items-center m-0">
+                        
+                        <Col lg={6} md={12} className="p-0 text-center text-lg-start">
+                            <img 
+                                src={anatomyImage} 
+                                alt="Anatomy of an ingredient" 
+                                style={{ 
+                                    maxWidth: '100%', 
+                                    height: 'auto', 
+                                    display: 'block', // Prevents tiny gaps under the image
+                                    margin: '0 auto'
+                                }} 
+                            />
                         </Col>
 
-                        {/* Column 2: Fish ??*/}
-                        <Col md={6} className="mb-4">
-                            <NutritionColumn foodData={fishData} />
+                        {/* Right Side: The Text */}
+                        <Col lg={6} md={12} className="d-flex flex-column justify-content-center align-items-center align-items-lg-end text-center text-lg-end p-0">
+                            
+                            {/* Text Wrapper limits width but moves as a single unit */}
+                            <div style={{ maxWidth: '480px', padding: '20px' }}>
+                                <h2 style={{ 
+                                    fontFamily: '"Playfair Display", serif', 
+                                    fontSize: 'clamp(2.5rem, 4vw, 4.2rem)', 
+                                    color: '#edeae5', 
+                                    margin: '0 0 20px 0',
+                                    letterSpacing: '-1px',
+                                    lineHeight: '1.1'
+                                }}>
+                                    The Anatomy of<br />Every Ingredient.
+                                </h2>
+                                <p style={{ 
+                                    color: '#a0a0a0', 
+                                    fontSize: '0.9rem', 
+                                    margin: 0,
+                                    lineHeight: '1.6',
+                                    fontWeight: '300'
+                                }}>
+                                    Sophistication is rooted in clarity. BVLTRA Metrics provides a 
+                                    refined lens into the fundamental building blocks of your 
+                                    diet. By deconstructing the complexity of nutrition into 
+                                    precise, searchable data, we allow you to curate your intake 
+                                    with uncompromising accuracy. Because understanding 
+                                    what fuels you is the first step toward mastering the self.
+                                </p>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+
+                {/* --- HEADING --- */}
+                <div style={{ borderTop: '1px solid #333', paddingTop: '40px', marginBottom: '60px' }}>
+                    <Row className="align-items-center">
+
+                        {/* Text-center (mobile) and text-lg-start (desktop) */}
+                        <Col lg={7} md={12} className="mb-4 mb-lg-0 text-center text-lg-start">
+                            <h2 style={{
+                                fontFamily: '"Playfair Display", serif',
+                                fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+                                color: '#edeae5',
+                                margin: 0,
+                                letterSpacing: '-1px',
+                                lineHeight: '1.1'
+                            }}>
+                                Quantified Sustenance
+                            </h2>
+                        </Col>
+
+                        <Col lg={5} md={12} className="text-center text-lg-end">
+                            <p style={{
+                                color: '#a0a0a0',
+                                fontSize: '0.9rem',
+                                margin: 0,
+                                lineHeight: '1.6',
+                                fontWeight: '300'
+                            }}>
+                                Selection begins with understanding. BVLTRA Metrics offers a curated data experience,
+                                allowing you to observe the underlying structures of your nutrition. We don't just
+                                provide numbers; we provide the standard for dietary clarity.
+                            </p>
+                        </Col>
+                    </Row>
+                </div>
+
+                {/* --- DATA --- */}
+                {loading ? (
+                    <div style={{ color: '#00ffcc', letterSpacing: '2px', fontFamily: '"Courier New", monospace' }}>
+                        Loading demo data...
+                    </div>
+                ) : (
+                    <Row className="g-4">
+                        <Col md={6}>
+                            <FoodAnalysisFrame foodData={foodAData} />
+                        </Col>
+
+                        <Col md={6}>
+                            <FoodAnalysisFrame foodData={foodBData} />
                         </Col>
                     </Row>
                 )}
