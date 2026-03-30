@@ -7,6 +7,9 @@
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
+//
+import CustomMacroBar from './CustomMacroBar';
+
 ChartJS.register(ArcElement, Tooltip);
 
 // The FoodAnalysisFrame component is responsible for displaying a detailed analysis of a selected food item. It takes the food data as a prop, extracts the relevant nutritional information, and presents it in both a visual format (using a doughnut chart to show the macronutrient breakdown) and a textual format (providing specific values for calories, protein, fat, carbohydrates, and other nutrients). The component also normalizes the nutrient values to a standard 100g serving size to allow for easy comparison between different foods. If no data is available, it displays a message indicating so.
@@ -72,6 +75,13 @@ const FoodAnalysisFrame = ({ foodData }) => {
                 <span style={{ color: 'rgba(16, 108, 147, 1)', fontWeight: 'bold' }}> {scaledCarbs}g carbs</span>,
                 <span style={{ color: 'rgba(185, 50, 52, 1)', fontWeight: 'bold' }}> {scaledProtein}g protein</span>.
             </p>
+
+            {/* --- THE NEW CUSTOM REQUIREMENT WIDGET --- */}
+            <CustomMacroBar 
+                protein={scaledProtein} 
+                carbs={scaledCarbs} 
+                fat={scaledFat} 
+            />
 
             {/* The nutrient grid is a structured layout that lists specific nutrient values. Each row displays the name of the nutrient and its corresponding value per 100g. The grid includes key nutrients such as calories, protein, fat (with subcategories), carbohydrates (with subcategories), cholesterol, sodium, and potassium. */}
             <div className="nutrient-grid-container">
