@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // NEW: Added for the button routing
 import Hero from './hero';
 import { Container, Row, Col } from 'react-bootstrap';
 import { getAccessToken, getFoodDetails } from './services/foodApi';
@@ -11,12 +12,15 @@ import { getAccessToken, getFoodDetails } from './services/foodApi';
 
 import FoodAnalysisFrame from './components/PieChart';
 import anatomyImage from './assets/chef-pan-anatomy.png'; 
+import Footer from './components/Footer'; // NEW: Imported the new footer
 
 // --- MAIN PAGE ---
 function LandingPage() {
     const [foodAData, setFoodAData] = useState(null);
     const [foodBData, setFoodBData] = useState(null);
     const [loading, setLoading] = useState(true);
+    
+    const navigate = useNavigate(); // NEW: Initialized the routing engine
 
     useEffect(() => {
         const loadComparisonData = async () => {
@@ -35,7 +39,8 @@ function LandingPage() {
     }, []);
 
     return (
-        <div style={{ backgroundColor: '#040404', color: 'white', minHeight: '100vh', paddingBottom: '100px' }}>
+        // NEW: Removed paddingBottom: '100px' so the footer sits flush at the bottom
+        <div style={{ backgroundColor: '#040404', color: 'white', minHeight: '100vh' }}>
             <Hero />
 
             <Container className="pt-0 mt-4">
@@ -143,6 +148,43 @@ function LandingPage() {
                         </Col>
                     </Row>
                 )}
+
+                {/* --- CALL TO ACTION BUTTON --- */}
+                <div style={{ textAlign: 'center', marginTop: '80px', paddingBottom: '40px' }}>
+                    <h3 style={{ fontFamily: '"Playfair Display", serif', color: '#fff', marginBottom: '25px', fontSize: '2rem' }}>
+                        Intrigued by the data?
+                    </h3>
+                    
+                    <button 
+                        onClick={() => navigate('/compare')}
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: '#00ffcc',
+                            border: '1px solid #00ffcc',
+                            padding: '12px 35px',
+                            borderRadius: '30px',
+                            fontFamily: '"Courier New", monospace',
+                            fontSize: '0.9rem',
+                            textTransform: 'uppercase',
+                            letterSpacing: '2px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            boxShadow: '0 0 15px rgba(0, 255, 204, 0.1)'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#00ffcc';
+                            e.target.style.color = '#000';
+                            e.target.style.boxShadow = '0 0 20px rgba(0, 255, 204, 0.5)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = 'transparent';
+                            e.target.style.color = '#00ffcc';
+                            e.target.style.boxShadow = '0 0 15px rgba(0, 255, 204, 0.1)';
+                        }}
+                    >
+                        Try It Yourself
+                    </button>
+                </div>
             </Container>
         </div>
     );

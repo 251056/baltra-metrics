@@ -8,6 +8,7 @@ import NavigationBar from './navbar';
 import LandingPage from './LandingPage';
 import TimelinePage from './TimelinePage';
 import ComparePage from './ComparePage';
+import Footer from './components/Footer'; 
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/compare" element={<ComparePage />} />
         <Route path="/timeline" element={<TimelinePage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

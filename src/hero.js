@@ -1,4 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; 
 import './hero.css';
 
 //Note: Images imposted because react apparently doesn't like it when you use the files in the public folder for some reason. 
@@ -6,6 +7,8 @@ import './hero.css';
 import bgImage from './assets/hero-bg2.jpg';
 import logoImage from './assets/hero-logo.png';
 function Hero() {
+    const navigate = useNavigate(); 
+
     return (
         //Left to right gradient overlay with the background image underneath. 
         //Gradient steps from light to dark to light again because NOBODY decided it'd be a good idea to creat "to center" or "to middle" gradient directions in CSS!!!
@@ -33,7 +36,8 @@ function Hero() {
                             {/*AI generated placeholder text*/}
                             A refined nutritional index dedicated to the deconstruction of food into precise, quantitative data. {/* By stripping away marketing labels to reveal the underlying chemical and caloric structures, it provides a high-fidelity mirror for those seeking radical clarity in their consumption. It is less about dietary advice and more about the raw anatomy of what we ingest.*/}
                         </p>
-                        <button className="btn btn-light rounded-pill px-4 py-2 mt-4 fw-bold shadow-sm">
+                        {/* NEW: Added onClick routing to the button */}
+                        <button onClick={() => navigate('/compare')} className="btn btn-light rounded-pill px-4 py-2 mt-4 fw-bold shadow-sm">
                             Explore the Data {/* PLACE HOLDER, DECIDE ON FUNTIONALITY */}
                         </button>
                     </Col>
