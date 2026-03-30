@@ -19,35 +19,6 @@ export const getAccessToken = async () => {
     }
 };
 
-// // Ask for the food data 
-// export const searchFood = async (query, token) => {
-//     try {
-//         const url = `${SEARCH_URL}?q=${encodeURIComponent(query)}`;
-
-//         const response = await fetch(url, {
-//             method: 'GET',
-//             headers: {
-//                 'Authorization': `Bearer ${token}` 
-//             }
-//         });
-
-//         const data = await response.json();
-
-//         // Response
-//         console.log("RAW FATSECRET RESPONSE:", data);
-
-//         // Crash prevention
-//         if (!data.foods || !data.foods.food) {
-//             console.error("FatSecret didn't return food data. Read the raw response above to see why.");
-//             return []; 
-//         }
-
-//         return data.foods.food; 
-//     } catch (error) {
-//         console.error("Search error:", error);
-//         return [];
-//     }
-// };
 
 // Get the detailed nutritional info for a specific food ID
 export const searchFoods = async (query, token) => {

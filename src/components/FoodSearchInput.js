@@ -39,7 +39,7 @@ const FoodSearchInput = ({ placeholder, token, onFoodSelect }) => {
             setResults(fetchedResults);
 
             setIsSearching(false);
-        }, 1200);
+        }, 800);
 
         return () => clearTimeout(delayDebounceFn);
     }, [query, token]);
