@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { getSearchHistory } from './services/telemetry';
-import bgImage from './assets/hero-header-timeline.jpg';
+import { getSearchHistory } from '../services/telemetry';
+import bgImage from '../assets/hero-header-timeline.jpg';
 import './ComparePage.css';
 
 // Components
-import LineGraph from './components/LineGraph';
-import HoverButton from './components/HoverButton'; 
+import LineGraph from '../components/LineGraph';
+import HoverButton from '../components/HoverButton'; 
 
 // --- MASTER COLOR CONFIGURATION ---
 const colorPalette = {

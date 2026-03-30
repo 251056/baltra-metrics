@@ -4,15 +4,15 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // NEW: Added for the button routing
-import Hero from './hero';
+import { useNavigate } from 'react-router-dom'; 
+import Hero from '../components/Hero';
 import { Container, Row, Col } from 'react-bootstrap';
-import { getAccessToken, getFoodDetails } from './services/foodApi';
+import { getAccessToken, getFoodDetails } from '../services/foodApi';
 
 
-import FoodAnalysisFrame from './components/PieChart';
-import anatomyImage from './assets/chef-pan-anatomy.png'; 
-import Footer from './components/Footer'; // NEW: Imported the new footer
+import FoodAnalysisFrame from '../components/PieChartAnalysisFrame';
+import anatomyImage from '../assets/chef-pan-anatomy.png'; 
+import Footer from '../components/Footer'; 
 
 // --- MAIN PAGE ---
 function LandingPage() {
@@ -20,7 +20,7 @@ function LandingPage() {
     const [foodBData, setFoodBData] = useState(null);
     const [loading, setLoading] = useState(true);
     
-    const navigate = useNavigate(); // NEW: Initialized the routing engine
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const loadComparisonData = async () => {

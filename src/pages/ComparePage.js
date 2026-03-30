@@ -4,19 +4,19 @@
  */
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import bgImage from './assets/hero-header-compare.jpg';
+import bgImage from '../assets/hero-header-compare.jpg';
 import './ComparePage.css';
-import { getAccessToken, getFoodDetails, searchFoods } from './services/foodApi';
+import { getAccessToken, getFoodDetails, searchFoods } from '../services/foodApi';
 
 import { useSearchParams } from 'react-router-dom';
 
 // Components
-import GlobalLegend from './components/GlobalLegend';
-import FoodAnalysisFrame from './components/PieChart';
-import MicronutrientFrame from './components/RadarGraph';
-import DirectComparisonSection from './components/BarGraph';
-import FoodSearchInput from './components/FoodSearchInput'; 
-import { logSearchHistory } from './services/telemetry';
+import GlobalLegend from '../components/GlobalLegend';
+import FoodAnalysisFrame from '../components/PieChartAnalysisFrame';
+import MicronutrientFrame from '../components/RadarGraph';
+import DirectComparisonSection from '../components/BarGraph';
+import FoodSearchInput from '../components/FoodSearchInput'; 
+import { logSearchHistory } from '../services/telemetry';
 
 function ComparePage() {
     // State for both food items, initialized from localStorage to persist across sessions

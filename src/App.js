@@ -4,10 +4,10 @@
  */
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavigationBar from './navbar';
-import LandingPage from './LandingPage';
-import TimelinePage from './TimelinePage';
-import ComparePage from './ComparePage';
+import NavigationBar from './components/Navbar';
+import LandingPage from './pages/LandingPage';
+import TimelinePage from './pages/TimelinePage';
+import ComparePage from './pages/ComparePage';
 import Footer from './components/Footer'; 
 
 function App() {
