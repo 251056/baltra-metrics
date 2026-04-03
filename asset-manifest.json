@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.fc2714c0.css",
-    "main.js": "/static/js/main.8c0b7da6.js",
+    "main.js": "/static/js/main.2cced4f9.js",
     "static/js/453.8954b312.chunk.js": "/static/js/453.8954b312.chunk.js",
     "static/media/chef-pan-anatomy.png": "/static/media/chef-pan-anatomy.13fb8a88d9a594c52e69.png",
     "static/media/hero-bg2.jpg": "/static/media/hero-bg2.b8ee12f1d98eef3b2f05.jpg",
@@ -11,11 +11,11 @@
     "static/media/logo.png": "/static/media/logo.0b9a7247709de333666e.png",
     "index.html": "/index.html",
     "main.fc2714c0.css.map": "/static/css/main.fc2714c0.css.map",
-    "main.8c0b7da6.js.map": "/static/js/main.8c0b7da6.js.map",
+    "main.2cced4f9.js.map": "/static/js/main.2cced4f9.js.map",
     "453.8954b312.chunk.js.map": "/static/js/453.8954b312.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fc2714c0.css",
-    "static/js/main.8c0b7da6.js"
+    "static/js/main.2cced4f9.js"
   ]
 }
