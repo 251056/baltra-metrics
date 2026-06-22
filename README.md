@@ -4,7 +4,7 @@ This project serves as a technical demonstration of my work in **Creative Techno
 
 ---
 
-## 📜 License & Usage
+## License & Usage
 
 This project is protected by a **Custom Educational and Demonstrative Use License**. 
 
@@ -19,7 +19,7 @@ This project is protected by a **Custom Educational and Demonstrative Use Licens
 
 ---
 
-## 📬 Contact
+## Contact
 
 If you would like to discuss the mechanisms of this project, inquire about a commercial license, or talk about potential collaborations, please get in touch:
 
@@ -30,7 +30,7 @@ If you would like to discuss the mechanisms of this project, inquire about a com
 
 ---
 
-## 🛠️ Credits & Notices
+## Credits & Notices
 
 This project utilizes several open-source tools and frameworks. Please see the [NOTICE](./NOTICE) file in this repository for a full list of third-party attributions and their respective licenses.
 
